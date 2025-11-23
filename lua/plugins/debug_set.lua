@@ -1,0 +1,35 @@
+return {
+  {
+    "mason-org/mason.nvim",
+    opts = {},
+  },
+  {
+    "mfussenegger/nvim-dap",
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    dependencies = { "mason-org/mason.nvim", "mfussenegger/nvim-dap" },
+    config = function()
+      require("mason-nvim-dap").setup({
+        automatic_installation = true,
+        handlers = {}
+      })
+    end
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+    },
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui"] = function() dapui.open() end
+      dap.listeners.before.event_terminated["dapui"] = function() dapui.close() end
+      dap.listeners.before.event_exited["dapui"] = function() dapui.close() end
+    end
+  },
+}
+
