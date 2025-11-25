@@ -2,6 +2,7 @@
 
 require("config.lazy")
 require("config.keymaps")
+require("config.general_setings")
 
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")

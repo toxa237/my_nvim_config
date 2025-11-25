@@ -17,11 +17,48 @@ require('which-key')
 
 -- debaging
 local dap = require("dap")
-map('n', '<F5>', function() dap.continue() end)
-map('n', '<F10>', function() dap.step_over() end)
-map('n', '<F11>', function() dap.step_into() end)
-map('n', '<F12>', function() dap.step_out() end)
-map('n', '<F9>', function() dap.toggle_breakpoint() end)
+map("n", "<F5>", function() dap.continue() end)
+map("n", "<F9>", function() dap.toggle_breakpoint() end)
+map("n", "<F10>", function() dap.step_over() end)
+map("n", "<F11>", function() dap.step_into() end)
+map("n", "<F12>", function() dap.step_out() end)
+
+-- завершити дебаг
+map("n", "<F4>", function() dap.terminate() end)
+
+-- перезапустити
+map("n", "<leader>dr", function()
+  dap.terminate()
+  dap.run_last()
+end)
+
+map("n", "<F6>", function()
+  require("dap").run({
+    type = "python",
+    request = "launch",
+    name = "Run current as module",
+    module = (function()
+      local file = vim.fn.expand("%:r")
+      local rel = vim.fn.fnamemodify(file, ":.:r")
+      return rel:gsub("/", ".")
+    end)(),
+    console = "integratedTerminal",
+    cwd = vim.fn.getcwd(),
+    pythonPath = function()
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+        return cwd .. "/.venv/bin/python"
+      elseif vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+        return cwd .. "/venv/bin/python"
+      end
+      return "python3"
+    end,
+    args = function()
+      local args_string = vim.fn.input('Args: ')
+      return vim.split(args_string, " ")
+    end,
+  })
+end)
 
 -- Window navigation
 map("n", "<C-h>", "<C-w>h")
@@ -38,4 +75,4 @@ map("t", "<C-l>", [[<C-\><C-N><C-w>l]])
 -- Tabs / buffers
 map("n", "<Tab>", ":BufferLineCycleNext<CR>")
 map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>")
-map("n", "<Space>x", ":bdelete<CR>", { desc = "Close buffer" })
+map("n", "<Space>x", ":bwipeout<CR>", { desc = "Close buffer" })

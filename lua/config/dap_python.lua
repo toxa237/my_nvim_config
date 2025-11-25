@@ -16,6 +16,6 @@ dap.configurations.python = {
     pythonPath = function()
       return venv .. '/bin/python'
     end,
+    cwd = vim.fn.getcwd(),
   },
 }
-
