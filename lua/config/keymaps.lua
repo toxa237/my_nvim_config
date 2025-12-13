@@ -2,9 +2,6 @@ local map = vim.keymap.set
 
 vim.g.mapleader = " "
 
--- neo-tree mapings
-map("n", "<C-n>", "<Cmd>Neotree toggle<CR>", { desc = "File Explorer" })
-
 -- telescope mapings
 local builtin = require('telescope.builtin')
 map('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
@@ -75,4 +72,41 @@ map("t", "<C-l>", [[<C-\><C-N><C-w>l]])
 -- Tabs / buffers
 map("n", "<Tab>", ":BufferLineCycleNext<CR>")
 map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>")
-map("n", "<Space>x", ":bwipeout<CR>", { desc = "Close buffer" })
+
+local function close_buffer_and_neotree()
+    local neotree_was_open = false
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        local ft = vim.api.nvim_buf_get_option(buf, "filetype")
+        if ft == "neo-tree" then
+            neotree_was_open = true
+            vim.cmd("Neotree close")
+            break
+        end
+    end
+    vim.cmd("bdelete")
+    if neotree_was_open then
+        vim.cmd("Neotree toggle")
+    end
+end
+
+map("n", "<leader>x",
+    close_buffer_and_neotree,
+    { noremap = true, silent = true, desc = "Close buffer and reopen Neotree" }
+)
+
+-- tree mapings
+map("n", "<C-n>", "<Cmd>Neotree toggle<CR>", { desc = "File Explorer" })
+
+-- general
+map("n", "gd", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", {})
+
+-- show diagnostic
+
+map("n", "gh", function()
+  vim.diagnostic.open_float(nil, { focus = true })
+end)
+
+-- lazy git
+map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" } )
+

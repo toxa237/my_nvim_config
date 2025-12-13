@@ -19,41 +19,41 @@ return {
       filesystem = {
         follow_current_file = {
           enabled = true,            -- коли перемикаєш вкладку → дерево підлаштовується
-	      leave_dirs_open = true,
+       leave_dirs_open = true,
         },
         group_empty_dirs = true,
         use_libuv_file_watcher = true,
-		visible = false,
-		hide_dotfiles = false,
-		hide_gitignored = false,
-		hide_ignored = false,
-		hide_hidden = false,
-		never_show = {
-		  ".git",
-		  ".ipynb_checkpoints",
-		  "__pycache__",
-		},
-		always_show = {
-		  ".gitigrore"
-		},
+  visible = false,
+  hide_dotfiles = false,
+  hide_gitignored = false,
+  hide_ignored = false,
+  hide_hidden = false,
+  never_show = {
+    ".git",
+    ".ipynb_checkpoints",
+    "__pycache__",
+  },
+  always_show = {
+    ".gitigrore"
+  },
       },
 
       buffers = {
         follow_current_file = {
           enabled = true,
-	    },
+     },
       },
 
       sources = {
         'filesystem',
-	    'buffers',
-	   },
+     'buffers',
+    },
        source_selector = {
          winbar = true,
-			sources = {
-			  { source = 'filesystem' },
-			  { source = 'buffers' },
-			},
+  	sources = {
+  	  { source = 'filesystem' },
+  	  { source = 'buffers' },
+  	},
       },
 
       window = {
