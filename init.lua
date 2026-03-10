@@ -1,5 +1,8 @@
  vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
 
+vim.opt.encoding = "utf-8"
+vim.scriptencoding = "utf-8"
+
 require("config.lazy")
 require("config.keymaps")
 require("config.general_setings")

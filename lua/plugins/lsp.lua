@@ -10,18 +10,27 @@ return {
     },
     config = function()
       -- LSP ключі
-      local on_attach = function(_, bufnr)
-        local map = vim.keymap.set
-        map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
-        map("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
-        map("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr })
-      end
+      -- local on_attach = function(_, bufnr)
+      --   local map = vim.keymap.set
+      --   -- map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
+      --   map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
+      -- end
 
       local lspconfig = require("lspconfig")
 
       -- Підключаємо встановлені через mason
       require("mason-lspconfig").setup({
-        ensure_installed = { "pyright", "lua_ls" },
+        ensure_installed = {
+            "lua_ls",
+            "ast_grep",
+            "cssls",
+            "cssmodules_ls",
+            "djlsp",
+            "golangci_lint_ls",
+            "html",
+            "jinja_lsp",
+            "pyright",
+        },
         handlers = {
           function(server)
             lspconfig[server].setup {
@@ -69,13 +78,26 @@ return {
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<Tab>"] = cmp.mapping.select_next_item(),
           ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+		  ["<C-Space>"] = cmp.mapping.complete(),
+		  ["<C-f>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+			  if cmp.visible_docs() then
+				cmp.close_docs()
+			  else
+				cmp.open_docs()
+			  end
+			else
+			  fallback()
+			end
+		  end),
         }),
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "buffer" },
-          { name = "path" },
-          { name = "luasnip" },
-        },
+        sources = cmp.config.sources({
+            { name = "lazydev" },
+            { name = "nvim_lsp" },
+            { name = "path" },
+        }, {
+            { name = "buffer" },
+        }),
       })
     end,
   },
