@@ -11,4 +11,3 @@ dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
 vim.opt.clipboard = "unnamedplus"
-

@@ -30,12 +30,18 @@ return {
     end
   },
   {
-    "nvim-lualine/lualine.nvim",
-    config = function()
-      require("lualine").setup({
-        options = { theme = "catppuccin" }
+  "nvim-lualine/lualine.nvim",
+  config = function()
+    local ok, lualine = pcall(require, "lualine")
+    if ok then
+      lualine.setup({
+        options = {
+          theme = "catppuccin-macchiato",
+          ignore_focus = {},
+        }
       })
     end
+  end
   },
   {
   "nvim-treesitter/nvim-treesitter",
@@ -52,6 +58,9 @@ return {
         "css",
         "javascript",
         "query",
+        "markdown",
+        "markdown_inline",
+        -- "latex"
       },
       highlight = { enable = true },
       indent = { enable = true },

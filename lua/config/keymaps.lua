@@ -29,41 +29,33 @@ map("n", "<leader>dr", function()
   dap.run_last()
 end)
 
-local dap = require("dap")
-local vscode = require("dap.ext.vscode")
-
-local function debug_with_config()
-    local path = vim.fn.getcwd() .. "/.vscode/launch.json"
-    if vim.fn.filereadable(path) == 0 then
-        vim.fn.mkdir(vim.fn.getcwd() .. "/.vscode", "p")
-        local file = io.open(path, "w")
-        local template = [[
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Current File",
-      "type": "",
-      "request": "launch",
-      "program": "${file}",
-      "args": [],
-      "console": "integratedTerminal",
-    }
-  ]
-}]]
-        file:write(template)
-        file:close()
-        vim.cmd("edit " .. path)
-    else
-        vscode.load_launchjs(nil, {
-            python = {'python'},
-            cppdbg = {'cpp', 'c'},
-            delve = {'go'}
-        })
-        dap.continue()
-    end
-end
-map("n", "<F6>", debug_with_config)
+map("n", "<F6>", function()
+  require("dap").run({
+    type = "python",
+    request = "launch",
+    name = "Run current as module",
+    module = (function()
+      local file = vim.fn.expand("%:r")
+      local rel = vim.fn.fnamemodify(file, ":.:r")
+      return rel:gsub("/", ".")
+    end)(),
+    console = "integratedTerminal",
+    cwd = vim.fn.getcwd(),
+    pythonPath = function()
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+        return cwd .. "/.venv/bin/python"
+      elseif vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+        return cwd .. "/venv/bin/python"
+      end
+      return "python3"
+    end,
+    args = function()
+      local args_string = vim.fn.input('Args: ')
+      return vim.split(args_string, " ")
+    end,
+  })
+end)
 
 -- Window navigation
 map("n", "<C-h>", "<C-w>h")
@@ -80,12 +72,9 @@ map("t", "<C-l>", [[<C-\><C-N><C-w>l]])
 -- Tabs / buffers
 map("n", "<Tab>", ":BufferLineCycleNext<CR>")
 map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>")
-map('n', '<leader>>', '<cmd>BufferLineMoveNext<cr>', {desc = 'Move Buffer Right'})
-map('n', '<leader><', '<cmd>BufferLineMovePrev<cr>', {desc = 'Move Buffer Left' })
-
-map("n", "gd", vim.lsp.buf.definition)
 
 local function close_buffer_and_neotree()
+    local current_win = vim.api.nvim_get_current_win()
     local neotree_was_open = false
     for _, win in ipairs(vim.api.nvim_list_wins()) do
         local buf = vim.api.nvim_win_get_buf(win)
@@ -99,33 +88,23 @@ local function close_buffer_and_neotree()
     vim.cmd("bdelete")
     if neotree_was_open then
         vim.cmd("Neotree toggle")
+        vim.api.nvim_set_current_win(current_win)
     end
 end
-map("n", "<leader>x",
-    close_buffer_and_neotree,
-    { noremap = true, silent = true, desc = "Close buffer and reopen Neotree" }
-)
+
+map("n", "<leader>x", close_buffer_and_neotree, {desc = "Close buffer"})
 
 -- tree mapings
 map("n", "<C-n>", "<Cmd>Neotree toggle<CR>", { desc = "File Explorer" })
 
+-- general
+map("n", "gd", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", {})
+
 -- show diagnostic
-map("n", "gh", function()
+map("n", "gj", function()
   vim.diagnostic.open_float(nil, { focus = true })
 end)
 
 -- lazy git
 map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" } )
-
--- avante
-map("n", "<leader>as", function()
-  vim.fn.jobstart("ollama serve", { detach = true })
-  vim.notify("🧠 Ollama started")
-end, { desc = "Start Ollama" })
-
-map("n", "<leader>ak", function()
-  vim.fn.jobstart("pkill ollama")
-  vim.notify("💀 Ollama stopped")
-end, { desc = "Stop Ollama" })
-
 

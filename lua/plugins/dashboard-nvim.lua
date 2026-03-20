@@ -1,12 +1,18 @@
 return {
     {
-        'nvimdev/dashboard-nvim',
-        event = 'VimEnter',
+        'goolord/alpha-nvim',
         config = function()
-            require('dashboard').setup {
-                -- config
+            local alpha = require("alpha")
+            local dashboard = require("alpha.themes.dashboard")
+            dashboard.section.header.val = {
+                "  nvim",
             }
+            dashboard.section.buttons.val = {
+                dashboard.button("p", "📁 Projects", ":Telescope projects<CR>"),
+                dashboard.button("f", "🔍 Find file", ":Telescope find_files<CR>"),
+                dashboard.button("q", "❌ Quit", ":qa<CR>"),
+            }
+            alpha.setup(dashboard.config)
         end,
-        dependencies = { {'nvim-tree/nvim-web-devicons'}}
     }
 }

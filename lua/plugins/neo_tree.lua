@@ -15,10 +15,11 @@ return {
             enable_diagnostics = false,
             filesystem = {
                 follow_current_file = {
-                    enabled = true,            -- коли перемикаєш вкладку → дерево підлаштовується
+                    enabled = true,            -- true коли перемикаєш вкладку → дерево підлаштовується
                     leave_dirs_open = true,
                 },
-                group_empty_dirs = true,
+                bind_to_cwd = true,
+                group_empty_dirs = false,
                 use_libuv_file_watcher = true,
                 visible = false,
                 hide_dotfiles = false,
@@ -34,20 +35,13 @@ return {
                     ".gitigrore"
                 },
             },
-            buffers = {
-                follow_current_file = {
-                    enabled = true,
-                },
-            },
             sources = {
                 'filesystem',
-                'buffers',
             },
             source_selector = {
                 winbar = true,
                 sources = {
                     { source = 'filesystem' },
-                    { source = 'buffers' },
                 },
             },
             window = {
