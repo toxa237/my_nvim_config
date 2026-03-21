@@ -69,6 +69,8 @@ map("t", "<C-j>", [[<C-\><C-N><C-w>j]])
 map("t", "<C-k>", [[<C-\><C-N><C-w>k]])
 map("t", "<C-l>", [[<C-\><C-N><C-w>l]])
 
+map('t', '<esc>', [[<C-\><C-n>]])
+
 -- Tabs / buffers
 map("n", "<Tab>", ":BufferLineCycleNext<CR>")
 map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>")

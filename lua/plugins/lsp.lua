@@ -9,7 +9,6 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      -- LSP ключі
       -- local on_attach = function(_, bufnr)
       --   local map = vim.keymap.set
       --   -- map("n", "gd", vim.lsp.buf.definition, { buffer = bufnr })
@@ -18,7 +17,6 @@ return {
 
       local lspconfig = require("lspconfig")
 
-      -- Підключаємо встановлені через mason
       require("mason-lspconfig").setup({
         ensure_installed = {
             "lua_ls",

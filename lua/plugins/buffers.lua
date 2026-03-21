@@ -8,12 +8,12 @@ return {
             local bufferline = require('bufferline')
             bufferline.setup({
                 options = {
-                    separator_style = "slant",
+                    -- separator_style = "slant",
                     diagnostics = "nvim_lsp",
                 },
                 highlights = {
                     fill = {
-                        bg = '#121212',
+                        bg = "none",
                     },
                 }
             })

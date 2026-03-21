@@ -6,8 +6,13 @@ return {
             size = 20,
             open_mapping = [[<c-\>]],
             hide_numbers = true,
-            shade_terminals = true,
-            direction = 'float',
+            shade_terminals = false,
+            -- highlights = {
+            --     Normal = {
+            --         guibg = "#00FF00",
+            --     }
+            -- },
+            direction = 'float', --'horizontal',
             insert_mappings = true,
             terminal_mappings = true,
             persist_size = true,
