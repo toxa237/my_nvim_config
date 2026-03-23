@@ -96,6 +96,9 @@ end
 
 map("n", "<leader>x", close_buffer_and_neotree, {desc = "Close buffer"})
 
+map("n", "<leader><", "<Cmd>BufferLineMovePrev<CR>", {desc = "Move buffer left"})
+map("n", "<leader>>", "<Cmd>BufferLineMoveNext<CR>", {desc = "Move buffer right"})
+
 -- tree mapings
 map("n", "<C-n>", "<Cmd>Neotree toggle<CR>", { desc = "File Explorer" })
 
@@ -109,4 +112,7 @@ end)
 
 -- lazy git
 map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" } )
+
+-- for html
+map({ "i" }, "<C-e>", function() vim.lsp.buf.completion() end)
 

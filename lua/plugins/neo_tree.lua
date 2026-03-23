@@ -37,11 +37,13 @@ return {
             },
             sources = {
                 'filesystem',
+                'buffers',
             },
             source_selector = {
                 winbar = true,
                 sources = {
                     { source = 'filesystem' },
+                    { source = 'buffers' },
                 },
             },
             window = {
