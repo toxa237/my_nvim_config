@@ -1,51 +1,45 @@
 return {
-
-    -- LSP core
     {
         "neovim/nvim-lspconfig",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "hrsh7th/cmp-nvim-lsp",
+        },
         config = function()
+            local lspconfig = require("lspconfig")
+            local mason_lspconfig = require("mason-lspconfig")
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            local servers = {
-                "lua_ls",
-                "ast_grep",
-                "cssls",
-                "cssmodules_ls",
-                "djlsp",
-                "golangci_lint_ls",
-                "html",
-                "jinja_lsp",
-                "pyright",
-            }
-            for _, server in ipairs(servers) do
-                vim.lsp.config(server, {
-                    capabilities = capabilities,
-                })
-                vim.lsp.enable(server)
-            end
-            -- Django
-            vim.lsp.config("djlsp", {
-                filetypes = { "html", "htmldjango" },
-                capabilities = capabilities,
+            require("mason").setup()
+            mason_lspconfig.setup({
+                ensure_installed = { 
+                    "lua_ls", "pyright", "ts_ls", "html", "cssls", "emmet_ls", "djlsp" 
+                },
             })
-            -- HTML
-            vim.lsp.config("html", {
-                filetypes = { "html", "htmldjango" },
-                capabilities = capabilities,
-            })
-            -- Emmet
-            vim.lsp.config("emmet_ls", {
-                filetypes = { "html", "htmldjango", "css" },
-                capabilities = capabilities,
-            })
-            vim.lsp.enable("emmet_ls")
 
-            require("luasnip.loaders.from_vscode").lazy_load({
-                include = { "html" },
+            mason_lspconfig.setup({
+                function(server_name)
+                    lspconfig[server_name].setup({
+                        capabilities = capabilities,
+                    })
+                end,
+
+                ["djlsp"] = function()
+                    lspconfig.djlsp.setup({
+                        capabilities = capabilities,
+                        filetypes = { "html", "htmldjango" },
+                    })
+                end,
+                ["emmet_ls"] = function()
+                    lspconfig.emmet_ls.setup({
+                        capabilities = capabilities,
+                        filetypes = { "html", "htmldjango", "css", "scss" },
+                    })
+                end,
             })
         end,
     },
-    -- Mason installer
     {
         "williamboman/mason.nvim",
         config = function()
@@ -97,6 +91,7 @@ return {
                     { name = "lazydev" },
                     { name = "nvim_lsp" },
                     { name = "path" },
+                    { name = "luasnip" },
                 }, {
                         { name = "buffer" },
                     }),
