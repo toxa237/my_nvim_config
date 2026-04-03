@@ -1,7 +1,7 @@
 return {
     {
         'DrKJeff16/project.nvim',
-        dependencies = { -- OPTIONAL. Choose any of the following
+        dependencies = {
             'nvim-telescope/telescope.nvim',
             'wsdjeg/picker.nvim',
             'folke/snacks.nvim',

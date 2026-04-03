@@ -103,16 +103,22 @@ map("n", "<leader>>", "<Cmd>BufferLineMoveNext<CR>", {desc = "Move buffer right"
 map("n", "<C-n>", "<Cmd>Neotree toggle<CR>", { desc = "File Explorer" })
 
 -- general
-map("n", "gd", "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", {})
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {})
 
 -- show diagnostic
-map("n", "gj", function()
+map("n", "gh", function()
   vim.diagnostic.open_float(nil, { focus = true })
 end)
 
 -- lazy git
-map("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "LazyGit" } )
+map("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "LazyGit" } )
+map("n", "<leader>ld", "<cmd>Gitsigns preview_hunk<CR>", {desc="show git diff"})
 
 -- for html
 map({ "i" }, "<C-e>", function() vim.lsp.buf.completion() end)
 
+-- for ai autocomlite
+map("n", "<leader>mc", "<cmd>Minuet virtualtext toggle<CR>", {desc="swich autocomlite"})
+
+--
+map("n", "#", "<cmd>nohlsearch<CR>", {desc="nohlsearch"})
