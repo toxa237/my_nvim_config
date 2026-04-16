@@ -20,15 +20,11 @@ return {
             require("venv-lsp").setup()
         end,
     },
-    -- {
-    --     "rmagatti/auto-session",
-    --     lazy = true,
-    --     ---@module "auto-session"
-    --     ---@type AutoSession.Config
-    --     opts = {
-    --         log_level = "error",
-    --         auto_save_enabled = true,
-    --         auto_restore_enabled = true,
-    --     },
-    -- }
-}
+    {
+        "folke/persistence.nvim",
+        event = "BufReadPre",
+        opts = {
+            options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" }
+        }
+    },
+ }

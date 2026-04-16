@@ -1,28 +1,34 @@
 return {
-    -- {
-    --     "yetone/avante.nvim",
-    --     build = "make",
-    --     event = "VeryLazy",
-    --     lazy = false,
-    --     version = false,
-    --     dependencies = {
-    --         "nvim-treesitter/nvim-treesitter",
-    --         "stevearc/dressing.nvim",
-    --         -- "nvim-lua/plenary.nvim",
-    --         -- "MunifTanjim/nui.nvim",
-    --     },
-    --     opts = {
-    --         provider = "ollama",
-    --         providers = {
-    --             ollama = {
-    --                 __inherited_from = "openai",
-    --                 endpoint = "http://127.0.0.1:11434/v1",
-    --                 model = "qwen2.5-coder:7b",
-    --                 api_key_name = "",
-    --             },
-    --         },
-    --     },
-    -- },
+    {
+        "yetone/avante.nvim",
+        build = "make",
+        event = "VeryLazy",
+        lazy = false,
+        version = false,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "muniftanjim/nui.nvim",
+            --- the below dependencies are optional,
+            "nvim-mini/mini.pick", -- for file_selector provider mini.pick
+            "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+            "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+            "ibhagwan/fzf-lua", -- for file_selector provider fzf
+            "stevearc/dressing.nvim", -- for input provider dressing
+            "folke/snacks.nvim", -- for input provider snacks
+            "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons        },
+        },
+            opts = {
+            provider = "ollama",
+            providers = {
+                ollama = {
+                    __inherited_from = "openai",
+                    endpoint = "http://127.0.0.1:11434/v1",
+                    model = "qwen2.5-coder:7b",
+                    api_key_name = "",
+                },
+            },
+        },
+    },
     {
         'milanglacier/minuet-ai.nvim',
         config = function()

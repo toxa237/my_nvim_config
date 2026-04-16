@@ -13,7 +13,11 @@ vim.api.nvim_set_hl(0, "NeoTreeTabActive", { fg = "#7aa2f7", bold = true }) -- �
 vim.api.nvim_set_hl(0, "NeoTreeTabInactive", { fg = "#565f89" }) -- Неактивні вкладки
 vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorActive", { fg = "none", bg = "none" }) --  фон "Files"
 vim.api.nvim_set_hl(0, "NeoTreeTabSeparatorInactive", { fg = "none", bg = "none" })
---
+
+local auto_theme_custom = require('lualine.themes.auto')
+auto_theme_custom.normal.c.bg = 'none'
+require('lualine').setup { options = {theme = auto_theme_custom} }
+
 -- vim.api.nvim_set_hl(0, "NeoTreeRootName", { fg = "#7aa2f7", bold = true })
 -- vim.api.nvim_set_hl(0, "NeoTreeDirectoryName", { fg = "#a9b1d6" })
 -- vim.api.nvim_set_hl(0, "NeoTreeDirectoryIcon", { fg = "#7aa2f7" })

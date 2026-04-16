@@ -54,6 +54,7 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
+            "rcarriga/cmp-dap",
             "saadparwaiz1/cmp_luasnip",
             "L3MON4D3/LuaSnip",
             "rafamadriz/friendly-snippets",
@@ -65,6 +66,10 @@ return {
             require("luasnip.loaders.from_vscode").lazy_load()
 
             cmp.setup({
+                enabled = function()
+                    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+                    or require("cmp_dap").is_dap_buffer()
+                end,
                 snippet = {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
@@ -88,6 +93,7 @@ return {
                     end),
                 }),
                 sources = cmp.config.sources({
+                    { name = "dap" },
                     { name = "lazydev" },
                     { name = "nvim_lsp" },
                     { name = "path" },

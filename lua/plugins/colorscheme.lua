@@ -35,17 +35,15 @@ return {
                     palette = {},
                     theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
                 },
-                overrides = function(colors) -- add/modify highlights
-                    return {}
-                end,
+                -- overrides = function(colors) -- add/modify highlights
+                --     return {}
+                -- end,
                 theme = "wave",              -- Load "wave" theme
                 background = {               -- map the value of 'background' option to a theme
                     dark = "wave",           -- try "dragon" !
                     light = "lotus"
                 },
             })
-
-            -- setup must be called before loading
             vim.cmd("colorscheme kanagawa")
         end
 
@@ -68,9 +66,12 @@ return {
                 lualine.setup({
                     options = {
                         theme = "kanagawa",
+                        globalstatus = true,
                         ignore_focus = {},
-                    }
-                })
+                        section_separators = { left = '', right = '' },
+                        component_separators = { left = '', right = '' },
+                    },
+               })
             end
         end
     },
