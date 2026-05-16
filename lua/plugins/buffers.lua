@@ -19,4 +19,21 @@ return {
             })
         end
     },
+    {
+        "echasnovski/mini.bufremove",
+        version = false,
+        config = function()
+            require("mini.bufremove").setup({})
+        end,
+        keys = {
+            {
+                "<leader>x",
+                function()
+                    local bd = require("mini.bufremove").delete
+                    bd(0, false)
+                end,
+                desc = "Delete Buffer safely",
+            },
+        },
+    },
 }

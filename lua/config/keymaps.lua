@@ -75,26 +75,6 @@ map('t', '<esc>', [[<C-\><C-n>]])
 map("n", "<Tab>", ":BufferLineCycleNext<CR>")
 map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>")
 
-local function close_buffer_and_neotree()
-    local current_win = vim.api.nvim_get_current_win()
-    local neotree_was_open = false
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        local buf = vim.api.nvim_win_get_buf(win)
-        local ft = vim.api.nvim_buf_get_option(buf, "filetype")
-        if ft == "neo-tree" then
-            neotree_was_open = true
-            vim.cmd("Neotree close")
-            break
-        end
-    end
-    vim.cmd("bdelete")
-    if neotree_was_open then
-        vim.cmd("Neotree toggle")
-        vim.api.nvim_set_current_win(current_win)
-    end
-end
-
-map("n", "<leader>x", close_buffer_and_neotree, {desc = "Close buffer"})
 
 map("n", "<leader><", "<Cmd>BufferLineMovePrev<CR>", {desc = "Move buffer left"})
 map("n", "<leader>>", "<Cmd>BufferLineMoveNext<CR>", {desc = "Move buffer right"})
