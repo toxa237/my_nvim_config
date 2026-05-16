@@ -8,7 +8,7 @@ return {
     opts = {
         file_types = { "markdown", "Avante" },
     },
-    ft = { "markdown", "Avante" },
+    ft = { "markdown" },
     config = function ()
         require('render-markdown').setup({
             latex = {
