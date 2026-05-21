@@ -12,7 +12,7 @@ return {
             --         guibg = "#00FF00",
             --     }
             -- },
-            direction = 'float', --'horizontal',
+            -- direction = 'float', --horizontal, float
             insert_mappings = true,
             terminal_mappings = true,
             persist_size = true,

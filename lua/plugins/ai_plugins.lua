@@ -28,71 +28,71 @@ return {
     --         },
     --     },
     -- },
-    -- {
-    --     "olimorris/codecompanion.nvim",
-    --     dependencies = {
-    --         "nvim-lua/plenary.nvim",
-    --         "nvim-treesitter/nvim-treesitter",
-    --         { 'stevearc/dressing.nvim', opts = {} },
-    --     },
-    --     config = function()
-    --         require("codecompanion").setup({
-    --             display = {
-    --                 chat = {
-    --                     show_settings = true,
-    --                     window = {
-    --                         layout = "vertical",
-    --                         relative = "editor",
-    --                         width = 0.35,
-    --                         position = "right",
-    --                     },
-    --                 },
-    --                 diff = {
-    --                     enabled = true,
-    --                     close_chat_at = 240,
-    --                     layout = 'vertical',
-    --                     opts = { 'internal', 'filler', 'closeoff', 'algorithm:patience', 'followwrap', 'linematch:120' },
-    --                     provider = 'default'
-    --                 },
-    --             },
-    --             adapters = {
-    --                 http = {
-    --                     my_ollama = function()
-    --                         return require("codecompanion.adapters").extend("openai_compatible", {
-    --                             env = {
-    --                                 url = "http://127.0.0.1:11434",
-    --                                 api_key = "ollama",
-    --                             },
-    --                             schema = {
-    --                                 model = {
-    --                                     default = "qwen3.5:9b",
-    --                                 },
-    --                                 temperature = {
-    --                                     default = 0.6,
-    --                                 },
-    --                             },
-    --                         })
-    --                     end,
-    --                 },
-    --             },
-    --             strategies = {
-    --                 chat   = { adapter = "my_ollama" },  -- <- slash notation
-    --                 inline = { adapter = "my_ollama" },
-    --                 agent  = { adapter = "my_ollama" },
-    --             },
-    --             opts = {
-    --                 send_code = true,
-    --                 use_diagnostic_signs = true,
-    --             },
-    --         })
-    --
-    --         vim.keymap.set({ "n", "v" }, "<leader>a", "", { desc = "AI" })
-    --         vim.keymap.set("n", "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "AI Chat" })
-    --         vim.keymap.set("n", "<leader>ai", "<cmd>CodeCompanion<cr>", { desc = "AI Inline" })
-    --         vim.keymap.set("v", "<leader>ai", "<cmd>CodeCompanion<cr>", { desc = "AI Inline" })
-    --         vim.keymap.set("n", "<leader>aa", "<cmd>CodeCompanionActions<cr>", { desc = "AI Actions" })
-    --     end,
-    -- },
+    {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            { 'stevearc/dressing.nvim', opts = {} },
+        },
+        config = function()
+            require("codecompanion").setup({
+                display = {
+                    chat = {
+                        show_settings = true,
+                        window = {
+                            layout = "vertical",
+                            relative = "editor",
+                            width = 0.35,
+                            position = "right",
+                        },
+                    },
+                    diff = {
+                        enabled = true,
+                        close_chat_at = 240,
+                        layout = 'vertical',
+                        opts = { 'internal', 'filler', 'closeoff', 'algorithm:patience', 'followwrap', 'linematch:120' },
+                        provider = 'default'
+                    },
+                },
+                adapters = {
+                    http = {
+                        my_ollama = function()
+                            return require("codecompanion.adapters").extend("openai_compatible", {
+                                env = {
+                                    url = "http://127.0.0.1:11434",
+                                    api_key = "ollama",
+                                },
+                                schema = {
+                                    model = {
+                                        default = "qwen2.5-coder:7b",
+                                    },
+                                    temperature = {
+                                        default = 0.6,
+                                    },
+                                },
+                            })
+                        end,
+                    },
+                },
+                strategies = {
+                    chat   = { adapter = "my_ollama" },  -- <- slash notation
+                    inline = { adapter = "my_ollama" },
+                    agent  = { adapter = "my_ollama" },
+                },
+                opts = {
+                    send_code = true,
+                    use_diagnostic_signs = true,
+                },
+            })
+
+            vim.keymap.set({ "n", "v" }, "<leader>a", "", { desc = "AI" })
+            vim.keymap.set("n", "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", { desc = "AI Chat" })
+            vim.keymap.set("n", "<leader>ai", "<cmd>CodeCompanion<cr>", { desc = "AI Inline" })
+            vim.keymap.set("v", "<leader>ai", "<cmd>CodeCompanion<cr>", { desc = "AI Inline" })
+            vim.keymap.set("n", "<leader>aa", "<cmd>CodeCompanionActions<cr>", { desc = "AI Actions" })
+        end,
+    },
     {
         'milanglacier/minuet-ai.nvim',
         config = function()
