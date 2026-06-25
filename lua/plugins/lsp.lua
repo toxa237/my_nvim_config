@@ -13,8 +13,8 @@ return {
 
             require("mason").setup()
             mason_lspconfig.setup({
-                ensure_installed = { 
-                    "lua_ls", "pyright", "ts_ls", "html", "cssls", "emmet_ls", "djlsp" 
+                ensure_installed = {
+                    "lua_ls", "pyright", "ts_ls", "html", "cssls", "emmet_ls", "djlsp", "gopls", "clangd"
                 },
             })
 
@@ -40,13 +40,6 @@ return {
             })
         end,
     },
-    {
-        "williamboman/mason.nvim",
-        config = function()
-            require("mason").setup()
-        end,
-    },
-
     -- Автокомпліт
     {
         "hrsh7th/nvim-cmp",
