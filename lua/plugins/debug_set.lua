@@ -11,10 +11,21 @@ return {
     dependencies = { "mason-org/mason.nvim", "mfussenegger/nvim-dap" },
     config = function()
       require("mason-nvim-dap").setup({
+        ensure_installed = { "delve" },
         automatic_installation = true,
         handlers = {}
       })
+      -- override python configurations (pythonPath шукає venv в момент запуску)
+      require("config.dap_python")
     end
+  },
+  {
+    "leoluz/nvim-dap-go",
+    dependencies = { "mfussenegger/nvim-dap" },
+    ft = "go",
+    config = function()
+      require("config.dap_go")
+    end,
   },
   {
     "rcarriga/nvim-dap-ui",
