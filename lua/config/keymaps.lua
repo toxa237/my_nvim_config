@@ -103,3 +103,6 @@ map("n", "<leader>mc", "<cmd>Minuet virtualtext toggle<CR>", {desc="swich autoco
 -- nohlsearch
 map("n", "#", "<cmd>nohlsearch<CR>", {desc="nohlsearch"})
 
+-- code actions
+map("n", "<leader>ca", vim.lsp.buf.code_action, {desc="code action"})
+
