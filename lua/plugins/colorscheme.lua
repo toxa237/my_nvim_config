@@ -46,7 +46,6 @@ return {
             })
             vim.cmd("colorscheme kanagawa")
         end
-
     },
     {
         "xiyaowong/transparent.nvim",

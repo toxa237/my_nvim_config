@@ -65,7 +65,7 @@ return {
                                 },
                                 schema = {
                                     model = {
-                                        default = "qwen2.5-coder:7b",
+                                        default = "carstenuhlig/omnicoder-2-9b:latest",
                                     },
                                     temperature = {
                                         default = 0.6,
