@@ -27,7 +27,9 @@ map("n", "<F4>", function() dap.terminate() end)
 map("n", "<leader>dr", function()
   dap.terminate()
   dap.run_last()
-end)
+end,
+{desc = "restart debug"}
+)
 
 map("n", "<F6>", function()
   require("dap").run({
