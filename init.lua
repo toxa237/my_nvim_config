@@ -5,6 +5,4 @@ require("config.lazy")
 require("config.keymaps")
 require("config.general_setings")
 
-vim.opt.clipboard = "unnamedplus"
-
 

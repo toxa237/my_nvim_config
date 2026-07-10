@@ -16,15 +16,12 @@ return {
                 ensure_installed = {
                     "lua_ls", "pyright", "ts_ls", "html", "cssls", "emmet_ls", "djlsp", "gopls", "clangd"
                 },
-            })
-
-            mason_lspconfig.setup({
+                handlers = {
                 function(server_name)
                     lspconfig[server_name].setup({
                         capabilities = capabilities,
                     })
                 end,
-
                 ["djlsp"] = function()
                     lspconfig.djlsp.setup({
                         capabilities = capabilities,
@@ -37,6 +34,7 @@ return {
                         filetypes = { "html", "htmldjango", "css", "scss" },
                     })
                 end,
+                },
             })
         end,
     },

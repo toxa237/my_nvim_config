@@ -4,7 +4,7 @@ return {
         branch = "v3.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons",
+            "echasnovski/mini.icons",
             "MunifTanjim/nui.nvim",
         },
         config = function()
@@ -14,6 +14,22 @@ return {
                 popup_border_style = "rounded",
                 enable_git_status = true,
                 enable_diagnostics = false,
+                default_component_configs = {
+                    icon = {
+                        provider = function(icon, node)
+                            local mini = require("mini.icons")
+                            if node.type == "directory" then
+                                local glyph, hl = mini.get("directory", node.name)
+                                icon.text = glyph
+                                icon.highlight = hl
+                            elseif node.type == "file" then
+                                local glyph, hl = mini.get("file", node.name)
+                                icon.text = glyph
+                                icon.highlight = hl
+                            end
+                        end,
+                    },
+                },
                 filesystem = {
                     follow_current_file = {
                         enabled = true,
@@ -33,7 +49,7 @@ return {
                         "__pycache__",
                     },
                     always_show = {
-                        ".gitigrore"
+                        ".gitignore"
                     },
                 },
                 sources = {
