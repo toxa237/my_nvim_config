@@ -13,7 +13,7 @@ return {
                 close_if_last_window = false,
                 popup_border_style = "rounded",
                 enable_git_status = true,
-                enable_diagnostics = false,
+                enable_diagnostics = true,
                 default_component_configs = {
                     icon = {
                         provider = function(icon, node)
@@ -32,24 +32,24 @@ return {
                 },
                 filesystem = {
                     follow_current_file = {
-                        enabled = true,
+                        enabled = false,
                         leave_dirs_open = true,
                     },
                     bind_to_cwd = true,
                     group_empty_dirs = false,
                     use_libuv_file_watcher = true,
-                    visible = false,
-                    hide_dotfiles = false,
-                    hide_gitignored = false,
-                    hide_ignored = false,
-                    hide_hidden = false,
-                    never_show = {
-                        ".git",
-                        ".ipynb_checkpoints",
-                        "__pycache__",
-                    },
-                    always_show = {
-                        ".gitignore"
+                    filtered_items = {
+                        visible = false,
+                        hide_dotfiles = true,
+                        hide_gitignored = false,
+                        always_show = {
+                            ".gitignore",
+                        },
+                        never_show = {
+                            ".git",
+                            ".ipynb_checkpoints",
+                            "__pycache__",
+                        },
                     },
                 },
                 sources = {
@@ -71,4 +71,3 @@ return {
         end
     },
 }
-
