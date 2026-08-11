@@ -97,7 +97,7 @@ map("n", "<leader>ld", "<cmd>Gitsigns preview_hunk<CR>", {desc="show git diff"})
 map({ "i" }, "<C-e>", function() vim.lsp.buf.completion() end)
 
 -- for ai autocomlite
-map("n", "<leader>mc", "<cmd>Minuet virtualtext toggle<CR>", {desc="swich autocomlite"})
+map("n", "<leader>mz", "<cmd>Minuet virtualtext toggle<CR>", {desc="swich autocomlite"})
 
 -- nohlsearch
 map("n", "#", "<cmd>nohlsearch<CR>", {desc="nohlsearch"})
