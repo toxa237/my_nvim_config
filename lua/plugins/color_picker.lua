@@ -1,5 +1,6 @@
 return {
     {
+        -- підсвітка кольорів (#ff0000) і вибір кольору
         "uga-rosa/ccc.nvim",
         config = function()
             require("ccc").setup({

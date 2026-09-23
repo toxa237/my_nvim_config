@@ -1,4 +1,5 @@
 return {
+    -- термінал усередині nvim (<C-\>)
     "akinsho/toggleterm.nvim",
     version = "*",
     config = function()

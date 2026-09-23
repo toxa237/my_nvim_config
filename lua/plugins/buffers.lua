@@ -1,6 +1,7 @@
 return {
     -- bufferline (tabs)
     {
+        -- вкладки відкритих файлів зверху
         "akinsho/bufferline.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
         version = "*",
@@ -20,6 +21,7 @@ return {
         end
     },
     {
+        -- закрити буфер, не ламаючи розкладку вікон
         "echasnovski/mini.bufremove",
         version = false,
         config = function()

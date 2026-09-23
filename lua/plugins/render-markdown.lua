@@ -1,4 +1,5 @@
 return {
+    -- гарний markdown прямо в буфері (заголовки, таблиці, чекбокси)
     'MeanderingProgrammer/render-markdown.nvim',
     dependencies = {
         'nvim-treesitter/nvim-treesitter',

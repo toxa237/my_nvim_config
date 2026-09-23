@@ -1,5 +1,6 @@
 return {
     {
+        -- стартовий екран, коли nvim відкрито без файлу
         'goolord/alpha-nvim',
         config = function()
             local alpha = require("alpha")

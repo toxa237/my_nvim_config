@@ -1,5 +1,6 @@
 return {
   {
+  -- підказка з доступними клавішами після <leader>
   "folke/which-key.nvim",
   event = "VeryLazy",
   opts = {

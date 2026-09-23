@@ -1,12 +1,10 @@
 return {
   {
-    "mason-org/mason.nvim",
-    opts = {},
-  },
-  {
+    -- сам дебагер: брейкпоінти, кроки, змінні
     "mfussenegger/nvim-dap",
   },
   {
+    -- ставить дебагери через Mason (debugpy, delve)
     "jay-babu/mason-nvim-dap.nvim",
     dependencies = { "mason-org/mason.nvim", "mfussenegger/nvim-dap" },
     config = function()
@@ -20,6 +18,7 @@ return {
     end
   },
   {
+    -- готові налаштування дебагу для Go
     "leoluz/nvim-dap-go",
     dependencies = { "mfussenegger/nvim-dap" },
     ft = "go",
@@ -28,10 +27,11 @@ return {
     end,
   },
   {
+    -- панелі дебагера: змінні, стек, watches, консоль
     "rcarriga/nvim-dap-ui",
     dependencies = {
       "mfussenegger/nvim-dap",
-      "nvim-neotest/nvim-nio",
+      "nvim-neotest/nvim-nio", -- async-бібліотека для dap-ui
     },
     config = function()
       local dap = require("dap")

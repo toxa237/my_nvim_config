@@ -1,5 +1,6 @@
 return {
     {
+        -- згортання коду (za/zc/zo/zM/zR) за LSP або відступами
         "kevinhwang91/nvim-ufo",
         dependencies = "kevinhwang91/promise-async",
         config = function()

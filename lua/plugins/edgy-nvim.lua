@@ -1,5 +1,6 @@
 return {
     {
+        -- прибиває neo-tree ліворуч і термінал знизу у фіксовані панелі
         "folke/edgy.nvim",
         event = "VeryLazy",
         init = function()

@@ -1,5 +1,6 @@
 return {
     {
+        -- визначає корінь проєкту, cd в нього, список проєктів
         'DrKJeff16/project.nvim',
         dependencies = {
             'nvim-telescope/telescope.nvim',
@@ -15,6 +16,7 @@ return {
         end
     },
     {
+        -- підхоплює python venv для pyright
         "jglasovic/venv-lsp.nvim",
         config = function()
             print("Venv-LSP: Plugin loading...")
@@ -22,6 +24,7 @@ return {
         end,
     },
     {
+        -- зберігає/відновлює сесію (відкриті файли)
         "folke/persistence.nvim",
         event = "BufReadPre",
         lazy = false,

@@ -16,6 +16,7 @@ return {
     --     end
     -- },
     {
+        -- колірна тема
         "rebelot/kanagawa.nvim",
         lazy = false,
         prioryty = 1000,
@@ -48,6 +49,7 @@ return {
         end
     },
     {
+        -- прозорий фон
         "xiyaowong/transparent.nvim",
         lazy = false,
         extra_groups = {
@@ -58,6 +60,7 @@ return {
         },
     },
     {
+        -- статусний рядок унизу
         "nvim-lualine/lualine.nvim",
         config = function()
             local ok, lualine = pcall(require, "lualine")
@@ -75,6 +78,7 @@ return {
         end
     },
     {
+        -- розбір коду: підсвітка і відступи для =
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         config = function()
@@ -109,13 +113,18 @@ return {
         end
     },
     {
+        -- повідомлення справа зверху, : по центру, вікна LSP-документації
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
+            lsp = {
+                -- підказку аргументів показує blink.cmp, інакше буде два вікна
+                signature = { enabled = false },
+            },
         },
         dependencies = {
-            "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
+            "MunifTanjim/nui.nvim", -- UI-бібліотека для noice
+            "rcarriga/nvim-notify", -- спливаючі повідомлення
         }
     }
 }

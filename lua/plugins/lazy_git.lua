@@ -1,5 +1,6 @@
 return {
     {
+        -- lazygit у плаваючому вікні
         "kdheepak/lazygit.nvim",
         lazy = true,
         cmd = {
@@ -19,6 +20,7 @@ return {
         }
     },
     {
+        -- git-зміни біля номерів рядків, blame, stage шматків
         "lewis6991/gitsigns.nvim",
         config = function ()
             require("gitsigns")

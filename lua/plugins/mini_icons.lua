@@ -1,5 +1,6 @@
 return {
     {
+        -- іконки файлів
         "echasnovski/mini.icons",
         opts = {},
         config = function()
