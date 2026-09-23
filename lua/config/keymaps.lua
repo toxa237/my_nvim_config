@@ -29,31 +29,31 @@ end,
 )
 
 map("n", "<F6>", function()
-  require("dap").run({
-    type = "python",
-    request = "launch",
-    name = "Run current as module",
-    module = (function()
-      local file = vim.fn.expand("%:r")
-      local rel = vim.fn.fnamemodify(file, ":.:r")
-      return rel:gsub("/", ".")
-    end)(),
-    console = "integratedTerminal",
-    cwd = vim.fn.getcwd(),
-    pythonPath = function()
-      local cwd = vim.fn.getcwd()
-      if vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-        return cwd .. "/.venv/bin/python"
-      elseif vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-        return cwd .. "/venv/bin/python"
-      end
-      return "python3"
-    end,
-    args = function()
-      local args_string = vim.fn.input('Args: ')
-      return vim.split(args_string, " ")
-    end,
-  })
+    require("dap").run({
+        type = "python",
+        request = "launch",
+        name = "Run current as module",
+        module = (function()
+            local file = vim.fn.expand("%:r")
+            local rel = vim.fn.fnamemodify(file, ":.:r")
+            return rel:gsub("/", ".")
+        end)(),
+        console = "integratedTerminal",
+        cwd = vim.fn.getcwd(),
+        pythonPath = function()
+            local cwd = vim.fn.getcwd()
+            if vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
+                return cwd .. "/.venv/bin/python"
+            elseif vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
+                return cwd .. "/venv/bin/python"
+            end
+            return "python3"
+        end,
+        args = function()
+            local args_string = vim.fn.input('Args: ')
+            return vim.split(args_string, " ")
+        end,
+    })
 end)
 
 -- Window navigation

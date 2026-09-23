@@ -10,8 +10,17 @@ return {
             local lspconfig = require("lspconfig")
             local mason_lspconfig = require("mason-lspconfig")
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
             require("mason").setup()
+            -- форматери/лінтери (ensure_installed нижче ставить тільки LSP)
+            local mason_registry = require("mason-registry")
+            mason_registry.refresh(function()
+                for _, tool in ipairs({ "ruff", "stylua", "goimports" }) do
+                    local ok, pkg = pcall(mason_registry.get_package, tool)
+                    if ok and not pkg:is_installed() then
+                        pkg:install()
+                    end
+                end
+            end)
             mason_lspconfig.setup({
                 ensure_installed = {
                     "lua_ls", "pyright", "ts_ls", "html", "cssls", "emmet_ls", "djlsp", "gopls", "clangd"
@@ -38,6 +47,16 @@ return {
             })
         end,
     },
+    -- vim API для lua_ls
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
     -- Автокомпліт
     {
         "hrsh7th/nvim-cmp",
@@ -58,7 +77,7 @@ return {
 
             cmp.setup({
                 enabled = function()
-                    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+                    return vim.nvim_buf_get_option(0, "buftype") ~= "prompt"
                     or require("cmp_dap").is_dap_buffer()
                 end,
                 snippet = {

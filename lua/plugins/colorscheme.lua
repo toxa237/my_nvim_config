@@ -70,7 +70,7 @@ return {
                         section_separators = { left = '', right = '' },
                         component_separators = { left = '', right = '' },
                     },
-               })
+                })
             end
         end
     },
@@ -78,27 +78,32 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         config = function()
-            require("nvim-treesitter.config").setup({
-                ensure_installed = {
-                    "python",
-                    "lua",
-                    "bash",
-                    "json",
-                    "yaml",
-                    "html",
-                    "css",
-                    "javascript",
-                    "query",
-                    "markdown",
-                    "markdown_inline",
-                    -- "latex"
-                },
-                highlight = { enable = true },
-                indent = { enable = true },
+            -- гілка main: ensure_installed/highlight/indent більше не існують,
+            -- парсери ставляться через install(), решта вмикається в autocmd нижче
+            require("nvim-treesitter").install({
+                "python",
+                "lua",
+                "bash",
+                "json",
+                "yaml",
+                "html",
+                "css",
+                "javascript",
+                "query",
+                "markdown",
+                "markdown_inline",
+                -- "latex"
             })
             vim.api.nvim_create_autocmd("FileType", {
-                callback = function()
-                    pcall(vim.treesitter.start)
+                callback = function(args)
+                    if not pcall(vim.treesitter.start) then
+                        return
+                    end
+                    -- indent для `=` тільки якщо для мови є indents.scm, інакше все з'їде в 0
+                    local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+                    if lang and vim.treesitter.query.get(lang, "indents") then
+                        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
                 end,
             })
         end
