@@ -57,7 +57,8 @@ return {
                         local g = tonumber(hex:sub(3, 4), 16)
                         local b = tonumber(hex:sub(5, 6), 16)
                         local h, s, l = rgb_to_hsl(r, g, b)
-                        s = s * sat
+                        -- насиченість не може бути > 1, інакше колір вилазить за #ffffff
+                        s = math.min(s * sat, 1)
                         l = l * bright
                         local nr, ng, nb = hsl_to_rgb(h, s, l)
                         hl.fg = nr * 65536 + ng * 256 + nb
