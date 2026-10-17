@@ -98,7 +98,7 @@ return {
 
             dashboard.section.buttons.val = {
                 projects_button,
-                dashboard.button("P", "📂 Projects (без сесії)", ":Telescope projects<CR>"),
+                dashboard.button("P", "📂 Projects (without session)", ":Telescope projects<CR>"),
                 dashboard.button("f", "🔍 Find file", ":Telescope find_files<CR>"),
                 dashboard.button("q", "❌ Quit", ":qa<CR>"),
             }
