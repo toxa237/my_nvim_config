@@ -72,7 +72,8 @@ return {
                 ["<S-Tab>"] = { "select_prev", "fallback" },
                 ["<C-n>"] = { "select_next", "fallback" },
                 ["<C-p>"] = { "select_prev", "fallback" },
-                ["<C-Space>"] = { "show", "fallback" },
+                -- без fallback, інакше <C-Space> = <C-@> і вставляє останній набраний текст
+                ["<C-Space>"] = { "show" },
                 ["<C-e>"] = { "hide", "fallback" },
                 -- показати/сховати документацію
                 ["<C-f>"] = { "hide_documentation", "show_documentation", "fallback" },

@@ -8,11 +8,10 @@ return {
             'folke/snacks.nvim',
             'ibhagwan/fzf-lua',
         },
-        opts = {},
         config = function ()
-            require("project").setup(
-
-            )
+            require("project").setup({
+                manual_mode=true
+            })
         end
     },
     {
@@ -26,47 +25,51 @@ return {
     {
         -- зберігає/відновлює сесію (відкриті файли)
         "folke/persistence.nvim",
-        event = "BufReadPre",
         lazy = false,
-        opts = {
-            hooks = {
-                select = function()
-                    return require("telescope.builtin").find_files {
-                        cwd = require("persistence").get_dir(),
-                        prompt_title = "Sessions",
-                    }
+        config = function (_, opts)
+            local persistence = require("persistence")
+            persistence.setup(opts)
+
+            -- вмикає збереження сесії тільки якщо поточна папка є в списку проєктів
+            local function sync()
+                local projects = require("project.util.history").get_recent_projects(true)
+                if vim.list_contains(projects, vim.fn.getcwd()) then
+                    persistence.start()
+                else
+                    persistence.stop()
+                end
+            end
+
+            vim.opt.sessionoptions:append("globals")
+            -- перед збереженням: запамʼятати, чи відкритий neo-tree, і закрити його
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "PersistenceSavePre",
+                callback = function()
+                    local open = 0
+                    for _, win in ipairs(vim.api.nvim_list_wins()) do
+                        if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree" then
+                            open = 1
+                        end
+                    end
+                    vim.g.NeoTreeOpen = open
+                    vim.cmd("Neotree close")
                 end,
-            },
-        },
-        keys = {
-            {
-                "<leader>qs",
-                function()
-                    require("persistence").load()
+            })
+            -- після завантаження: відкрити neo-tree, якщо він був відкритий
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "PersistenceLoadPost",
+                callback = function()
+                    if vim.g.NeoTreeOpen == 1 then
+                        vim.cmd("Neotree show")
+                    end
                 end,
-                desc = "Load session for current directory",
-            },
-            {
-                "<leader>qS",
-                function()
-                    require("persistence").select()
-                end,
-                desc = "Select session to load",
-            },
-            {
-                "<leader>ql",
-                function()
-                    require("persistence").load { last = true }
-                end,
-                desc = "Load last session",
-            },
-            {
-                "<leader>qd",
-                function()
-                    require("persistence").stop()
-                end,
-                desc = "Stop persistence",
-            },
-        },
+            })
+
+
+            vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
+                callback = sync,
+            })
+        end
     },
 }
+
